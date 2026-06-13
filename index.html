@@ -3,130 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="출처와 날짜를 중심으로 AI 교육 시장 자료를 정리하고 분석하는 리서치 도구">
-  <title>EDU:SCOPE | AI 교육 시장 인텔리전스</title>
+  <meta name="description" content="비즈니스 프로필 기반 응답자 타기팅과 맞춤형 B2B 시장조사를 제공하는 EDU:SCOPE Research">
+  <title>EDU:SCOPE Research | 정확한 타깃에서 시작하는 B2B 리서치</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <div class="noise"></div>
-  <header class="topbar">
-    <a class="brand" href="#">EDU<span>:</span>SCOPE</a>
-    <nav aria-label="주요 메뉴">
-      <a class="active" href="#research">리서치</a>
-      <a href="#assistant">AI 분석</a>
-      <a href="#method">조사 원칙</a>
-    </nav>
-    <button class="ghost-button" id="openAddModal">+ 자료 추가</button>
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+  <header class="site-header" id="header">
+    <div class="header-inner container">
+      <a class="brand" href="#main" aria-label="EDU:SCOPE Research 홈">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>EDU:SCOPE <b>Research</b></span>
+      </a>
+      <nav class="desktop-nav" id="desktopNav" aria-label="주요 메뉴"></nav>
+      <a class="header-cta" href="#contact" data-inquiry="quote">견적 문의</a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileNavigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobileNavigation" aria-label="모바일 메뉴" hidden></nav>
   </header>
 
-  <main>
-    <section class="hero" id="research">
-      <div class="eyebrow"><span></span> AI EDUCATION MARKET INTELLIGENCE</div>
-      <h1>교육 시장의 변화를<br><em>근거로</em> 읽습니다.</h1>
-      <p>정책, 산업, 기술 자료를 출처와 날짜 중심으로 수집하고<br class="desktop-only"> AI와 함께 검증 가능한 시장 인사이트를 만드세요.</p>
-      <div class="hero-actions">
-        <a class="primary-button" href="#assistant">AI 리서치 시작 <span>↗</span></a>
-        <button class="text-button" id="exportCsv">현재 자료 CSV 내보내기</button>
-      </div>
-      <div class="hero-mark" aria-hidden="true">01</div>
-    </section>
-
-    <section class="metrics" aria-label="시장 자료 현황">
-      <article><b id="totalCount">0</b><span>검증 자료</span></article>
-      <article><b id="sourceCount">0</b><span>출처 기관</span></article>
-      <article><b id="latestDate">-</b><span>최근 발행</span></article>
-      <article class="accent-metric"><b>100%</b><span>출처 링크 포함</span></article>
-    </section>
-
-    <section class="library section-wrap">
-      <div class="section-heading">
-        <div><span class="section-no">02</span><h2>근거 라이브러리</h2></div>
-        <p>모든 자료는 원문 링크와 발행일을 함께 표시합니다.</p>
-      </div>
-
-      <div class="toolbar">
-        <label class="search-box">
-          <span>⌕</span>
-          <input id="searchInput" type="search" placeholder="기관, 키워드, 인사이트 검색" autocomplete="off">
-        </label>
-        <select id="categoryFilter" aria-label="카테고리 필터">
-          <option value="all">전체 분야</option>
-          <option value="정책">정책</option>
-          <option value="시장">시장</option>
-          <option value="기술">기술</option>
-          <option value="인재">인재</option>
-        </select>
-        <select id="sortFilter" aria-label="정렬 방식">
-          <option value="newest">최신순</option>
-          <option value="oldest">과거순</option>
-          <option value="source">기관순</option>
-        </select>
-      </div>
-
-      <div class="card-grid" id="sourceGrid"></div>
-      <div class="empty-state" id="emptyState" hidden>조건에 맞는 자료가 없습니다.</div>
-    </section>
-
-    <section class="assistant section-wrap" id="assistant">
-      <div class="assistant-copy">
-        <span class="section-no light">03</span>
-        <div class="ai-status"><i></i> GPT API READY</div>
-        <h2>자료를 읽고,<br>다음 질문을 찾으세요.</h2>
-        <p>현재 필터링된 자료만 AI에게 전달합니다. 답변에는 반드시 근거 번호를 표시하도록 설계했습니다.</p>
-        <ul>
-          <li>시장 기회와 리스크 비교</li>
-          <li>정책 변화 기반 사업 가설 도출</li>
-          <li>출처별 관점 차이와 정보 공백 확인</li>
-        </ul>
-      </div>
-      <form class="assistant-panel" id="analysisForm">
-        <label for="question">리서치 질문</label>
-        <textarea id="question" required maxlength="1200" placeholder="예: 한국 AI 교육 시장에서 향후 2년간 가장 유망한 B2B 기회는 무엇인가요?"></textarea>
-        <div class="quick-prompts">
-          <button type="button" data-prompt="자료를 바탕으로 핵심 시장 기회 3가지와 근거를 정리해줘.">시장 기회</button>
-          <button type="button" data-prompt="자료 사이의 상충되는 관점과 추가 조사가 필요한 정보 공백을 찾아줘.">정보 공백</button>
-          <button type="button" data-prompt="정책과 인재 데이터를 중심으로 사업 리스크를 분석해줘.">리스크 분석</button>
+  <main id="main">
+    <section class="hero section" id="service">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">B2B MARKET RESEARCH</p>
+          <h1>정확한 타깃에서<br><span>쓸모 있는 인사이트</span>가<br>시작됩니다.</h1>
+          <p class="hero-description">업종, 기업 규모, 직무, 직급 등 실제 비즈니스 조건을 바탕으로 필요한 응답자를 선별하고 시장의 답을 찾습니다.</p>
+          <div class="button-group">
+            <a class="button button-primary" href="#contact" data-inquiry="brochure">소개서 신청</a>
+            <a class="button button-secondary" href="#contact" data-inquiry="quote">견적 문의하기</a>
+          </div>
+          <div class="hero-proof" aria-label="서비스 특징">
+            <span><i>01</i> 비즈니스 조건 타기팅</span>
+            <span><i>02</i> 정량·정성 통합 설계</span>
+            <span><i>03</i> 전담 리서처 지원</span>
+          </div>
         </div>
-        <div class="context-line"><span id="contextCount">0</span>개 자료를 분석 컨텍스트로 사용</div>
-        <button class="submit-button" type="submit">GPT로 분석하기 <span>→</span></button>
-        <div class="answer" id="answer" hidden></div>
-      </form>
+        <div class="hero-visual" aria-label="응답자 타기팅 대시보드 예시">
+          <div class="visual-glow"></div>
+          <div class="dashboard-card">
+            <div class="dashboard-head"><div><small>RESEARCH AUDIENCE</small><strong>응답자 타깃 설정</strong></div><span class="live"><i></i> LIVE</span></div>
+            <div class="profile-stack" aria-hidden="true"><span>PM</span><span>HR</span><span>IT</span><span>+</span></div>
+            <div class="target-row"><span>업종</span><b>IT · SaaS</b><em>적용됨</em></div>
+            <div class="target-row"><span>기업 규모</span><b>300명 이상</b><em>적용됨</em></div>
+            <div class="target-row"><span>직무 / 직급</span><b>인사 · 팀장 이상</b><em>적용됨</em></div>
+            <div class="match-card"><div><small>예상 적합도</small><strong>92.4%</strong></div><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="survey-card"><span>Q. 도입 검토 시 가장 중요한 기준은?</span><div><i style="--value:78%"></i></div><b>응답 수집 중 · 68%</b></div>
+          <div class="data-badge"><strong>7</strong><span>타기팅<br>필터</span></div>
+        </div>
+      </div>
     </section>
 
-    <section class="method section-wrap" id="method">
-      <div class="section-heading">
-        <div><span class="section-no">04</span><h2>조사 원칙</h2></div>
+    <section class="targeting section" id="targeting">
+      <div class="container">
+        <div class="section-intro centered"><p class="eyebrow">PRECISE TARGETING</p><h2>리서치의 품질은<br>누구에게 묻는지에서 결정됩니다.</h2><p>일반적인 인구통계 기준을 넘어, 현업의 맥락을 보여주는 비즈니스 프로필로 조사 대상을 구체화합니다.</p></div>
+        <div class="targeting-layout">
+          <div class="conversation-card">
+            <div class="conversation-head"><span class="agent-avatar">ES</span><div><strong>리서치 컨설턴트</strong><small>평균 1영업일 이내 답변</small></div></div>
+            <div class="message customer">서울 소재 중견 IT 기업에서 구매 의사결정에 참여하는 인사팀 리더만 조사할 수 있나요?</div>
+            <div class="message agent"><b>네, 가능합니다.</b><br>지역, 업종, 기업 규모, 직무와 직급을 조합해 조건에 맞는 응답자 그룹을 설계합니다.</div>
+          </div>
+          <div class="filter-panel">
+            <div class="filter-head"><div><small>TARGET PROFILE</small><strong>타기팅 조건</strong></div><span>7개 필터</span></div>
+            <div class="filter-grid" id="targetFilters"></div>
+            <div class="filter-result"><span>조건 일치 패널</span><strong>맞춤 표본 산출</strong><i aria-hidden="true">→</i></div>
+          </div>
+        </div>
       </div>
-      <div class="principles">
-        <article><b>01</b><h3>원문 우선</h3><p>보도자료, 공식 보고서, 연구 원문을 우선 등록합니다.</p></article>
-        <article><b>02</b><h3>시간 맥락</h3><p>발행일과 확인일을 분리해 자료의 시의성을 판단합니다.</p></article>
-        <article><b>03</b><h3>근거 연결</h3><p>AI 답변이 사용한 자료를 번호로 추적할 수 있게 합니다.</p></article>
-        <article><b>04</b><h3>사실과 해석</h3><p>원문 요약과 조사자의 인사이트를 구분해 기록합니다.</p></article>
+    </section>
+
+    <section class="flow-section section" aria-labelledby="flowTitle">
+      <div class="container">
+        <div class="section-intro split"><div><p class="eyebrow">TARGETING FLOW</p><h2 id="flowTitle">넓게 시작해,<br>필요한 응답자만 남깁니다.</h2></div><p>조건을 단계적으로 적용해 조사 목적에 적합한 현직자 그룹을 선별합니다. 명확한 기준은 응답의 정확도와 결과의 활용도를 높입니다.</p></div>
+        <div class="flow-track" id="targetingFlow"></div>
+      </div>
+    </section>
+
+    <section class="use-cases section" id="useCases">
+      <div class="container">
+        <div class="section-intro"><p class="eyebrow">RESEARCH USE CASES</p><h2>비즈니스의 중요한 판단을<br>검증 가능한 조사로 바꿉니다.</h2><p>시장 이해부터 제품 검증, 심층 인터뷰까지 목적에 맞는 조사 방법을 설계합니다.</p></div>
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+    </section>
+
+    <section class="process-section section" id="process">
+      <div class="container">
+        <div class="section-intro light"><p class="eyebrow">END-TO-END RESEARCH</p><h2>타깃 설정부터 결과 보고까지<br>전문 리서처가 함께합니다.</h2><p>정량 조사와 정성 조사를 아우르는 일관된 프로세스로 의사결정에 필요한 결과물을 제공합니다.</p></div>
+        <div class="process-grid" id="processGrid"></div>
+        <div class="deliverables"><span>제공 결과물</span><div><b>최종 리포트</b><b>교차분석 테이블</b><b>원본 데이터</b><b>핵심 인사이트 요약</b></div></div>
+      </div>
+    </section>
+
+    <section class="testimonials section" id="cases">
+      <div class="container">
+        <div class="testimonial-header"><div class="section-intro"><p class="eyebrow">RESEARCH SCENARIOS</p><h2>복잡한 질문일수록<br>정확한 표본이 필요합니다.</h2></div><div class="slider-controls"><button id="prevTestimonial" type="button" aria-label="이전 사례">←</button><button id="nextTestimonial" type="button" aria-label="다음 사례">→</button></div></div>
+        <div class="testimonial-viewport" aria-live="polite"><div class="testimonial-track" id="testimonialTrack"></div></div>
+        <div class="slider-status"><div id="sliderDots" class="slider-dots"></div><button id="sliderPause" class="pause-button" type="button" aria-label="후기 자동 재생 일시 정지">일시 정지</button></div>
+      </div>
+    </section>
+
+    <section class="clients section" aria-labelledby="clientsTitle">
+      <div class="container"><p class="eyebrow centered-text">TRUSTED ACROSS INDUSTRIES</p><h2 id="clientsTitle">다양한 산업의 팀이<br>더 나은 시장 질문을 만들고 있습니다.</h2><div class="client-grid" id="clientGrid"></div></div>
+    </section>
+
+    <section class="contact-section section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy"><p class="eyebrow">START A RESEARCH</p><h2>찾고 싶은 시장의 답,<br>함께 설계해 보세요.</h2><p>조사 목적과 필요한 응답자 조건을 알려주시면 적합한 조사 방식과 예상 범위를 안내해 드립니다.</p><div class="contact-note"><b>문의 접수 후</b><span>담당자가 내용을 검토해 1영업일 이내 연락드립니다.</span></div></div>
+        <form class="contact-form" name="research-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="research-inquiry"><p class="hidden"><label>작성하지 마세요 <input name="bot-field"></label></p>
+          <fieldset><legend>문의 유형</legend><div class="inquiry-types"><label><input type="radio" name="inquiryType" value="소개서 신청" checked><span>소개서 신청</span></label><label><input type="radio" name="inquiryType" value="견적 문의"><span>견적 문의</span></label></div></fieldset>
+          <div class="form-row"><label>회사명<input name="company" required autocomplete="organization" placeholder="회사명을 입력해 주세요"></label><label>담당자명<input name="name" required autocomplete="name" placeholder="성함을 입력해 주세요"></label></div>
+          <label>업무용 이메일<input type="email" name="email" required autocomplete="email" placeholder="name@company.com"></label>
+          <label>조사 목적 및 타깃 조건<textarea name="message" rows="4" placeholder="예: 국내 SaaS 기업의 인사 담당자 대상 제품 콘셉트 조사"></textarea></label>
+          <label class="privacy"><input type="checkbox" required><span>문의 처리를 위한 개인정보 수집 및 이용에 동의합니다.</span></label>
+          <button class="button button-primary form-submit" type="submit">문의 접수하기 <span>→</span></button>
+        </form>
       </div>
     </section>
   </main>
 
-  <footer><span>EDU:SCOPE © 2026</span><span>Evidence before opinion.</span></footer>
+  <div class="floating-cta" aria-label="빠른 문의"><a href="#contact" data-inquiry="brochure">소개서 신청</a><a href="#contact" data-inquiry="quote">견적 문의</a></div>
 
-  <dialog id="addModal">
-    <form method="dialog" id="sourceForm">
-      <div class="modal-head"><h2>리서치 자료 추가</h2><button type="button" id="closeModal" aria-label="닫기">×</button></div>
-      <div class="form-grid">
-        <label>자료 제목<input name="title" required maxlength="120"></label>
-        <label>출처 기관<input name="source" required maxlength="80"></label>
-        <label>발행일<input name="publishedAt" type="date" required></label>
-        <label>분야<select name="category"><option>정책</option><option>시장</option><option>기술</option><option>인재</option></select></label>
-        <label class="wide">원문 URL<input name="url" type="url" required placeholder="https://"></label>
-        <label class="wide">핵심 요약<textarea name="summary" required maxlength="500"></textarea></label>
-        <label class="wide">키워드 (쉼표 구분)<input name="tags" placeholder="생성형 AI, 교사 연수"></label>
-      </div>
-      <button class="submit-button" type="submit">자료 저장</button>
-    </form>
-  </dialog>
-
+  <footer class="footer">
+    <div class="container footer-grid"><div><a class="brand footer-brand" href="#main"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>EDU:SCOPE <b>Research</b></span></a><p>근거 있는 질문과 정확한 타깃으로<br>비즈니스의 다음 결정을 돕습니다.</p></div><div><strong>서비스</strong><a href="#targeting">응답자 타기팅</a><a href="#useCases">조사 활용 분야</a><a href="#process">진행 절차</a></div><div><strong>문의</strong><a href="#contact">온라인 문의 접수</a><span>평일 09:00 - 18:00</span></div><div><strong>정책</strong><a href="#">이용약관</a><a href="#">개인정보 처리방침</a></div></div>
+    <div class="container footer-bottom"><span>EDU:SCOPE Research</span><span>© 2026 EDU:SCOPE. All rights reserved.</span></div>
+  </footer>
   <script src="/app.js" type="module"></script>
 </body>
 </html>
