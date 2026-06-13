@@ -3,7 +3,8 @@ const navigation = [
   { label: "타기팅", href: "#targeting" },
   { label: "활용 분야", href: "#useCases" },
   { label: "진행 절차", href: "#process" },
-  { label: "고객 사례", href: "#cases" }
+  { label: "고객 사례", href: "#cases" },
+  { label: "AI 분석", href: "#aiResearch" }
 ];
 
 const targetFilters = ["근무 지역", "업종", "기업 규모", "직무", "직급", "경력", "소속 부서"];
@@ -123,3 +124,80 @@ const observer = new IntersectionObserver(entries => entries.forEach(entry => {
   if (entry.isIntersecting) navLinks.forEach(link => link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`));
 }), { rootMargin: "-35% 0px -60%", threshold: 0 });
 sections.forEach(section => observer.observe(section));
+
+const apiStorageKey = "eduscope-openai-api-key";
+const modelStorageKey = "eduscope-openai-model";
+const apiDialog = $("#apiConfigDialog");
+const apiKeyInput = $("#apiKeyInput");
+const apiModelInput = $("#apiModelInput");
+
+function getApiKey() { return sessionStorage.getItem(apiStorageKey) || ""; }
+function updateApiStatus() {
+  const configured = Boolean(getApiKey());
+  $("#apiConfigLabel").textContent = configured ? "API 연결됨" : "API 설정";
+  $("#apiStatus").classList.toggle("connected", configured);
+  $("#apiStatus").innerHTML = `<i></i> ${configured ? "브라우저 세션 API 연결됨" : "API 키 설정 필요"}`;
+}
+function openApiDialog() {
+  apiKeyInput.value = getApiKey();
+  apiModelInput.value = sessionStorage.getItem(modelStorageKey) || "gpt-5-mini";
+  apiDialog.showModal();
+  requestAnimationFrame(() => apiKeyInput.focus());
+}
+$("#openApiConfig").addEventListener("click", openApiDialog);
+$("#openApiConfigInline").addEventListener("click", openApiDialog);
+$("#closeApiConfig").addEventListener("click", () => apiDialog.close());
+$("#toggleApiKey").addEventListener("click", event => {
+  const visible = apiKeyInput.type === "text";
+  apiKeyInput.type = visible ? "password" : "text";
+  event.currentTarget.textContent = visible ? "보기" : "숨기기";
+  event.currentTarget.setAttribute("aria-label", visible ? "API 키 표시" : "API 키 숨기기");
+});
+$("#clearApiKey").addEventListener("click", () => {
+  sessionStorage.removeItem(apiStorageKey);
+  sessionStorage.removeItem(modelStorageKey);
+  apiKeyInput.value = "";
+  apiModelInput.value = "gpt-5-mini";
+  updateApiStatus();
+});
+$("#apiConfigForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const key = apiKeyInput.value.trim();
+  if (!key.startsWith("sk-") || key.length < 20) {
+    apiKeyInput.setCustomValidity("올바른 OpenAI API 키 형식을 입력해 주세요.");
+    apiKeyInput.reportValidity();
+    return;
+  }
+  apiKeyInput.setCustomValidity("");
+  sessionStorage.setItem(apiStorageKey, key);
+  sessionStorage.setItem(modelStorageKey, apiModelInput.value.trim() || "gpt-5-mini");
+  apiDialog.close();
+  updateApiStatus();
+});
+
+$("#aiResearchForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  const key = getApiKey();
+  if (!key) { openApiDialog(); return; }
+  const button = event.currentTarget.querySelector("button[type=submit]");
+  const answer = $("#aiAnswer");
+  button.disabled = true;
+  answer.hidden = false;
+  answer.className = "ai-answer loading";
+  answer.textContent = "시장 자료를 읽고 조사 가설을 구성하고 있습니다...";
+  try {
+    const response = await fetch("/.netlify/functions/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-OpenAI-API-Key": key, "X-OpenAI-Model": sessionStorage.getItem(modelStorageKey) || "gpt-5-mini" },
+      body: JSON.stringify({ question: $("#aiQuestion").value, context: $("#aiContext").value })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "AI 분석 요청에 실패했습니다.");
+    answer.className = "ai-answer";
+    answer.textContent = data.answer;
+  } catch (error) {
+    answer.className = "ai-answer error";
+    answer.textContent = error.message;
+  } finally { button.disabled = false; }
+});
+updateApiStatus();

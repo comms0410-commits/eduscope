@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/api.css">
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 바로가기</a>
@@ -19,6 +20,7 @@
         <span>EDU:SCOPE <b>Research</b></span>
       </a>
       <nav class="desktop-nav" id="desktopNav" aria-label="주요 메뉴"></nav>
+      <button class="api-config-button" id="openApiConfig" type="button"><i></i><span id="apiConfigLabel">API 설정</span></button>
       <a class="header-cta" href="#contact" data-inquiry="quote">견적 문의</a>
       <button class="menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileNavigation">
         <span></span><span></span><span></span>
@@ -112,6 +114,18 @@
       <div class="container"><p class="eyebrow centered-text">TRUSTED ACROSS INDUSTRIES</p><h2 id="clientsTitle">다양한 산업의 팀이<br>더 나은 시장 질문을 만들고 있습니다.</h2><div class="client-grid" id="clientGrid"></div></div>
     </section>
 
+    <section class="ai-research section" id="aiResearch">
+      <div class="container ai-grid">
+        <div class="section-intro light"><p class="eyebrow">AI RESEARCH COPILOT</p><h2>시장 메모를<br>분석 가능한 가설로.</h2><p>직접 수집한 자료와 조사 질문을 입력하면 핵심 가설, 확인할 정보, 권장 조사 설계를 구조화합니다.</p><button class="api-inline-button" id="openApiConfigInline" type="button">OpenAI API 키 설정 <span>→</span></button></div>
+        <form class="ai-panel" id="aiResearchForm">
+          <label>분석할 시장 자료<textarea id="aiContext" required rows="7" maxlength="8000" placeholder="기사 요약, 인터뷰 메모, 시장 데이터 등 분석할 내용을 붙여 넣어 주세요."></textarea></label>
+          <label>리서치 질문<textarea id="aiQuestion" required rows="3" maxlength="1200" placeholder="예: 이 시장에서 우선 검증해야 할 B2B 고객 가설은 무엇인가요?"></textarea></label>
+          <div class="ai-panel-footer"><span id="apiStatus"><i></i> API 키 설정 필요</span><button class="button button-primary" type="submit">AI 분석 실행</button></div>
+          <div class="ai-answer" id="aiAnswer" hidden aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
     <section class="contact-section section" id="contact">
       <div class="container contact-grid">
         <div class="contact-copy"><p class="eyebrow">START A RESEARCH</p><h2>찾고 싶은 시장의 답,<br>함께 설계해 보세요.</h2><p>조사 목적과 필요한 응답자 조건을 알려주시면 적합한 조사 방식과 예상 범위를 안내해 드립니다.</p><div class="contact-note"><b>문의 접수 후</b><span>담당자가 내용을 검토해 1영업일 이내 연락드립니다.</span></div></div>
@@ -129,6 +143,17 @@
   </main>
 
   <div class="floating-cta" aria-label="빠른 문의"><a href="#contact" data-inquiry="brochure">소개서 신청</a><a href="#contact" data-inquiry="quote">견적 문의</a></div>
+
+  <dialog class="api-dialog" id="apiConfigDialog" aria-labelledby="apiDialogTitle">
+    <form id="apiConfigForm" method="dialog">
+      <div class="api-dialog-head"><div><span>SECURE SESSION SETTING</span><h2 id="apiDialogTitle">OpenAI API 연결</h2></div><button id="closeApiConfig" type="button" aria-label="API 설정 닫기">×</button></div>
+      <p class="api-description">입력한 키는 현재 브라우저 탭의 세션에만 보관되며 GitHub, Netlify 또는 브라우저 영구 저장소에 저장되지 않습니다.</p>
+      <label>OpenAI API Key<div class="api-key-field"><input id="apiKeyInput" type="password" autocomplete="off" spellcheck="false" placeholder="sk-..." required><button id="toggleApiKey" type="button" aria-label="API 키 표시">보기</button></div></label>
+      <label>사용 모델<input id="apiModelInput" type="text" value="gpt-5-mini" autocomplete="off" maxlength="80"></label>
+      <div class="api-warning"><strong>보안 안내</strong><span>공용 컴퓨터에서는 사용하지 마세요. 탭을 닫으면 입력한 키가 삭제됩니다.</span></div>
+      <div class="api-dialog-actions"><button id="clearApiKey" class="button button-secondary" type="button">키 삭제</button><button class="button button-primary" type="submit">세션에 적용</button></div>
+    </form>
+  </dialog>
 
   <footer class="footer">
     <div class="container footer-grid"><div><a class="brand footer-brand" href="#main"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>EDU:SCOPE <b>Research</b></span></a><p>근거 있는 질문과 정확한 타깃으로<br>비즈니스의 다음 결정을 돕습니다.</p></div><div><strong>서비스</strong><a href="#targeting">응답자 타기팅</a><a href="#useCases">조사 활용 분야</a><a href="#process">진행 절차</a></div><div><strong>문의</strong><a href="#contact">온라인 문의 접수</a><span>평일 09:00 - 18:00</span></div><div><strong>정책</strong><a href="#">이용약관</a><a href="#">개인정보 처리방침</a></div></div>
