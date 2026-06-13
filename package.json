@@ -1,0 +1,9 @@
+{
+  "name":"eduscope-ai-education-market-research",
+  "version":"1.0.0",
+  "private":true,
+  "type":"module",
+  "scripts":{"dev":"netlify dev","serve":"npx serve .","check":"node --check app.js && node --check netlify/functions/analyze.mjs"},
+  "engines":{"node":">=18"},
+  "devDependencies":{"netlify-cli":"^23.0.0"}
+}
